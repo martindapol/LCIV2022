@@ -4,18 +4,33 @@
  */
 package com.example.views;
 
+import com.example.controllers.ControladorServicio;
+import com.example.model.Dtos.ConsumoDTO;
+import com.example.model.Habitacion;
+import com.example.model.Servicio;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Martin
  */
 public class JDReportes extends javax.swing.JDialog {
 
+    private ControladorServicio controlador;
+
     /**
      * Creates new form JDReportes
      */
-    public JDReportes(java.awt.Frame parent, boolean modal) {
+    public JDReportes(java.awt.Frame parent, boolean modal, ControladorServicio controlador) {
         super(parent, modal);
         initComponents();
+        this.controlador = controlador;
+        this.setLocationRelativeTo(null);
+        this.initCombo();
+        this.initReportes();
+
     }
 
     /**
@@ -28,6 +43,17 @@ public class JDReportes extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jlConsumos = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jtTotal = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtReporte3 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jcHabitaciones = new javax.swing.JComboBox<>();
+        jbConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes");
@@ -35,69 +61,156 @@ public class JDReportes extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Reportes");
 
+        jLabel2.setText("Reporte 2:");
+
+        jlConsumos.setEnabled(false);
+        jScrollPane1.setViewportView(jlConsumos);
+
+        jLabel3.setText("Reporte 1:");
+
+        jtTotal.setEnabled(false);
+
+        jLabel4.setText("Reporte 3:");
+
+        jtReporte3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jtReporte3);
+
+        jLabel5.setText("Habitación");
+
+        jcHabitaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        jbConsultar.setText("Consultar");
+        jbConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConsultarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
+                .addGap(212, 212, 212)
                 .addComponent(jLabel1)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbConsultar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jbConsultar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void jbConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConsultarActionPerformed
+        //Reporte 3:        
+        if(jcHabitaciones.getSelectedIndex()!= -1){
+            Habitacion selected = (Habitacion)jcHabitaciones.getSelectedItem();
+            List<Servicio> lst = controlador.obtenerReporte3(selected.getNroHabitacion());
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(new String[]{"Concepto", "Importe"});
+            
+            for (Servicio servicio : lst) {
+                model.addRow(new Object[]{servicio.getConcepto(), servicio.getPrecio()});
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            jtReporte3.setModel(model);
         }
-        //</editor-fold>
+        
+        
+    }//GEN-LAST:event_jbConsultarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDReportes dialog = new JDReportes(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbConsultar;
+    private javax.swing.JComboBox<String> jcHabitaciones;
+    private javax.swing.JList<ConsumoDTO> jlConsumos;
+    private javax.swing.JTable jtReporte3;
+    private javax.swing.JTextField jtTotal;
     // End of variables declaration//GEN-END:variables
+
+    private void initReportes() {
+        //Reporte 1:
+        float total = controlador.obtenerReporte1();
+        jtTotal.setText(String.valueOf(total));
+
+        //Reporte 2:
+        List<ConsumoDTO> lst = controlador.obtenerReporte2();
+        jlConsumos.setListData(new ConsumoDTO[lst.size()]);
+        //IMPORTANTE: NO OLVIDAR, como el profe, de modificar en la pestaña CODE
+        //del JList modificar la propiedad TypeParameters desde la vista de Desing
+    }
+
+    private void initCombo() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        List<Habitacion> lst = controlador.obtenerHabitaciones();
+
+        for (Habitacion habitacion : lst) {
+            model.addElement(habitacion);
+        }
+        jcHabitaciones.setModel(model);
+    }
 }
+

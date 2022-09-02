@@ -4,6 +4,7 @@
  */
 package com.example;
 
+import com.example.controllers.ControladorServicio;
 import com.example.views.JFPrincipal;
 
 /**
@@ -18,7 +19,7 @@ public class Ejecutable {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            new JFPrincipal().setVisible(true);
+            new JFPrincipal(new ControladorServicio()).setVisible(true);
         } catch (Exception ex) {
             // handle the error driver
         }

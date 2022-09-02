@@ -4,18 +4,23 @@
  */
 package com.example.views;
 
+import com.example.controllers.ControladorServicio;
+
 /**
  *
  * @author Martin
  */
 public class JFPrincipal extends javax.swing.JFrame {
 
+    private ControladorServicio controlador;
+    
     /**
      * Creates new form JFPrincipal
      */
-    public JFPrincipal() {
+    public JFPrincipal(ControladorServicio controlador) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.controlador = controlador;
     }
 
     /**
@@ -27,17 +32,27 @@ public class JFPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jbAlta = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu principal");
 
-        jButton1.setText("Alta de servicio");
-        jButton1.setToolTipText("");
+        jbAlta.setText("Alta de servicio");
+        jbAlta.setToolTipText("");
+        jbAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAltaActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Reportes");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("HOTEL DE PASAJEROS");
@@ -53,7 +68,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
@@ -63,7 +78,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62)
-                .addComponent(jButton1)
+                .addComponent(jbAlta)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(93, Short.MAX_VALUE))
@@ -72,11 +87,19 @@ public class JFPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaActionPerformed
+       new JFAltaServicio(this, true, controlador).setVisible(true);
+    }//GEN-LAST:event_jbAltaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new JDReportes(this, true, controlador).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jbAlta;
     // End of variables declaration//GEN-END:variables
 }
