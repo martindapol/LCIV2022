@@ -21,6 +21,9 @@ public class Componente {
         return id;
     }
 
+    public Componente() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -32,5 +35,11 @@ public class Componente {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Componente{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+    
     
 }

@@ -23,6 +23,16 @@ public class OrdenProduccion {
         this.cantidad = cantidad;
     }
 
+    public OrdenProduccion(String fecha, Responsable responsable, Componente componente, int cantidad) {
+        this.fecha = fecha;
+        this.responsable = responsable;
+        this.componente = componente;
+        this.cantidad = cantidad;
+    }
+
+
+
+    
     public int getId() {
         return id;
     }
@@ -62,7 +72,16 @@ public class OrdenProduccion {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "OrdenProduccion{" + "id=" + id + ", fecha=" + fecha + ", responsable=" + responsable + ", componente=" + componente + ", cantidad=" + cantidad + '}';
+    }
+        public Object[] toArray(){
+        return new Object[]{id,fecha,responsable,componente,cantidad};
+    }
     
-    
-    
+    public Object[] toArraySinId(){
+        return new Object[]{id,fecha,responsable.getNombre(),componente.getNombre(),cantidad};
+    }
 }

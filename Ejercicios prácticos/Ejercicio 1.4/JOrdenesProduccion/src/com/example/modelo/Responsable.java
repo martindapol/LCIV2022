@@ -10,6 +10,9 @@ package com.example.modelo;
  */
 public class Responsable {
     private int id;
+
+    public Responsable() {
+    }
     private String nombre;
 
     public Responsable(int id, String nombre) {
@@ -32,4 +35,10 @@ public class Responsable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Responsable{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+    
 }
