@@ -12,23 +12,64 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Setter
 public class ProductoController {
-    
+
     @Autowired
     private ProductoDao dao;
-    
-    
+
     @GetMapping("/productos")
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         try {
             return ResponseEntity.ok(dao.getAll());
-        } catch (DaoException  e) {
+        } catch (DaoException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-    }   
+    }
+
+    @PostMapping("/producto")
+    public ResponseEntity<?> create(@RequestBody Producto producto) {
+        if (producto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de producto incorrectos!");
+        }
+        try {
+            return ResponseEntity.ok(dao.save(producto));
+        } catch (DaoException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error de datos!");
+
+        }
+    }
+
+    @PutMapping("/producto")
+    public ResponseEntity<?> update(@RequestBody Producto producto) {
+        if (producto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de producto incorrectos!");
+        }
+        try {
+            return ResponseEntity.ok(dao.save(producto));
+        } catch (DaoException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error de datos!");
+        }
+    }
+
+    @DeleteMapping("/producto/{id}")
+    public ResponseEntity<?> update(@PathVariable int id) {
+        if (id == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id producto no puede ser 0");
+        }
+        try {
+            return ResponseEntity.ok(dao.delete(id));
+        } catch (DaoException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error de datos!");
+        }
+    }
 }

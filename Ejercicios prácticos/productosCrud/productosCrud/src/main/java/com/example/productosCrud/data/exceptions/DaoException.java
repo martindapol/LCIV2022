@@ -4,10 +4,15 @@
  */
 package com.example.productosCrud.data.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author Martin
  */
+@Setter
+@Getter
 public class DaoException extends Exception{
     private String message;
 

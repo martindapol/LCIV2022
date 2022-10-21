@@ -14,8 +14,7 @@ import java.util.List;
  */
 public interface ProductoDao {
     List<Producto> getAll() throws DaoException;
-    Producto getbyId(int id);
-    boolean save(Producto producto); //insert or update
-    boolean delete(int id);
-    
+    Producto getbyId(int id) throws DaoException ;
+    boolean save(Producto producto) throws DaoException; //insert or update
+    boolean delete(int id)  throws DaoException;
 }
