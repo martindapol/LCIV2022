@@ -1,9 +1,26 @@
 package tup.lc4.abmpersonas.models;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name="personas2")
 public class Persona {
+    
+    @Id @Basic
     private int documento;
+    
+    @Basic
     private String nombre;
+    
+    @Basic 
     private String apellido;
+    
+    @Basic 
     private int edad;
 
     public Persona() {
