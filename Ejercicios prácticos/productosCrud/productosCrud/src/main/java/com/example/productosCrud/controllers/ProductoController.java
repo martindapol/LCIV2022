@@ -7,7 +7,6 @@ package com.example.productosCrud.controllers;
 import com.example.productosCrud.data.ProductoDao;
 import com.example.productosCrud.data.exceptions.DaoException;
 import com.example.productosCrud.domains.Producto;
-import java.util.List;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,16 +35,28 @@ public class ProductoController {
         }
     }
 
-    @PostMapping("/producto")
-    public ResponseEntity<?> create(@RequestBody Producto producto) {
-        if (producto == null) {
+     @GetMapping("/producto/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id) {
+        if (id == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id producto no puede ser 0");
+        }
+        try {
+            return ResponseEntity.ok(dao.getbyId(id));
+        } catch (DaoException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error de datos!");
+        }
+    }
+    
+    
+    @PostMapping("/producto/{id}")
+    public ResponseEntity<?> create(@PathVariable int id) {
+        if (id == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de producto incorrectos!");
         }
         try {
-            return ResponseEntity.ok(dao.save(producto));
+            return ResponseEntity.ok(dao.getbyId(id));
         } catch (DaoException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error de datos!");
-
         }
     }
 
@@ -62,7 +73,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/producto/{id}")
-    public ResponseEntity<?> update(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         if (id == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id producto no puede ser 0");
         }

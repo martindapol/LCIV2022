@@ -5,10 +5,15 @@
 package com.example.productosCrud.domains;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 /**
  *
@@ -19,12 +24,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
+@Table(name = "t_productos")
 public class Producto {
+    @Id
+    @Column(name="id_producto")
     private int productoNro;
+    @Column(name="n_producto")
     private String nombre;
+    @Column(name="precio")
     private float precio;
-    private Date fecha_baja;
+    @Column(name="fecha_baja")
+    private Date fechaBaja;
 }
 /**
  * 

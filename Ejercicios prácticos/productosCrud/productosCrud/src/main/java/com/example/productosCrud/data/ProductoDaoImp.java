@@ -21,12 +21,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Setter
-public class ProductoDaoImp implements ProductoDao {
+public class ProductoDaoImp {
 
     @Autowired
     private DataSource dataSource;
 
-    @Override
+  
     public List<Producto> getAll() throws DaoException {
         List<Producto> lst = new ArrayList<>();
         final String query = "SELECT * FROM t_productos";
@@ -43,7 +43,7 @@ public class ProductoDaoImp implements ProductoDao {
         return lst;
     }
 
-    @Override
+    
     public Producto getbyId(int id) throws DaoException {
         Producto found = null;
         final String query = "SELECT * FROM t_productos WHERE id_producto = ?";
@@ -64,7 +64,7 @@ public class ProductoDaoImp implements ProductoDao {
         return found;
     }
 
-    @Override
+   
     public boolean save(Producto producto) throws DaoException {
         boolean isNew = false;
         Producto aux = getbyId(producto.getProductoNro());
@@ -92,7 +92,7 @@ public class ProductoDaoImp implements ProductoDao {
         return (rows == 1);
     }
 
-    @Override
+   
     public boolean delete(int id) throws DaoException{
         final String query = "UPDATE t_productos SET fecha_baja = NOW() WHERE id_producto = ?";
         int rows = 0;
