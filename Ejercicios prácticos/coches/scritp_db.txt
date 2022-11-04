@@ -1,0 +1,38 @@
+CREATE SCHEMA IF NOT EXISTS `coches` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
+USE `coches` ;
+
+-- -----------------------------------------------------
+-- Table `miprimerabasededatos`.`Persona`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `coches`.`Persona` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `Nombre` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `Apellido1` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `Apellido2` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `DNI` VARCHAR(9) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+-- -----------------------------------------------------
+-- Table `miprimerabasededatos`.`Coche`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `coches`.`Coche` (
+  `Matricula` VARCHAR(7) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `Marca` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `Modelo` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `Caballos` INT(11) NOT NULL ,
+  `Persona_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`Matricula`, `Persona_id`) ,
+  UNIQUE INDEX `Matricula_UNIQUE` (`Matricula` ASC) ,
+  INDEX `fk_Coche_Persona_idx` (`Persona_id` ASC) ,
+  CONSTRAINT `fk_Coche_Persona`
+    FOREIGN KEY (`Persona_id` )
+    REFERENCES `miprimerabasededatos`.`Persona` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
