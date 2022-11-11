@@ -16,17 +16,17 @@ import org.springframework.stereotype.Repository;
  * @author Martin
  */
 @Repository
-public class EmpleadoRepositoryJPA implements EmpleadoRepository {
+public class EmpleadoRepositoryJPA {
+//public class EmpleadoRepositoryJPA implements EmpleadoRepository {
 
     @PersistenceContext
     private EntityManager em;
 
-    @Override
+    //@Override
     @Transactional
     public void createRecibo(Recibo recibo) {
        Empleado emp = em.find(Empleado.class, recibo.getEmpleado().getLegajo());
        emp.addRecibo(recibo);
        em.merge(recibo);
     }
-
 }

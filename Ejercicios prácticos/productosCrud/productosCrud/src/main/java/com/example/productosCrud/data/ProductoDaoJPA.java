@@ -18,11 +18,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ProductoDaoJPA implements ProductoDao {
-
+//public class ProductoDaoJPA{
     @PersistenceContext
     private EntityManager em;
 
-    @Override
+   
     public List<Producto> getAll() throws DaoException {
         return em.createQuery("SELECT p FROM Producto p", Producto.class).getResultList();
     }
