@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,8 +30,9 @@ import lombok.Setter;
 @Table(name = "recibos")
 
 public class Recibo {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "nro_recibo")
     private int nroRecibo;
     private int mes;
@@ -42,7 +44,7 @@ public class Recibo {
     private double obraSocial;
     @Column(name = "fondo_complej")
     private double fondoComplejidad;
-    
+
     @ManyToOne(targetEntity = Empleado.class)
     @JoinColumn(name = "legajo")
     @JsonBackReference
